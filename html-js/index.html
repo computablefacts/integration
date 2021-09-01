@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html class="no-js" lang="fr">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/foundation-sites@6.6.3/dist/css/foundation.min.css"
+          integrity="sha256-ogmFxjqiTMnZhxCqVmcqTvjfe1Y/ec4WaRj/aQPvn+I=" crossorigin="anonymous">
+    <meta charset="utf-8">
+    <title>Explorer vos données avec l'API SQL</title>
+</head>
+
+<body>
+<div class="grid-container" id="app">
+    <h3 class="text-center">Explorer vos données avec l'API SQL</h3>
+    <div v-if="!cfApiAutodetect" style="padding: 1em">
+        <label for="token">Votre URL cf-ui :
+            <input id="baseUrl" v-model="inputBaseUrl" @input="onInputBaseUrl(inputBaseUrl)"
+                   placeholder="L'URL ici... Ex: https://dev.company.computablefacts.com" style="width: 100%"/>
+        </label>
+        <label for="token">Votre jeton d'API :
+            <input id="token" v-model="inputToken" @input="onInputToken(inputToken)" placeholder="Le jeton ici..."
+                   style="width: 100%"/>
+        </label>
+    </div>
+    <label for="query">Votre requête SQL :
+        <textarea rows="5" id="query" v-model="query" placeholder="La requête ici..." style="width: 100%"></textarea>
+    </label>
+    <label for="catalog">
+        <input id="catalog" type="checkbox" v-model="useCatalog" />Interroger le catalogue des données.
+    </label>
+
+    <button type="submit" class="button" @click="loadResults">Charger</button>
+    <div v-if="hasError" style="padding: 1em">
+        <pre style="background-color: coral; padding: 0.4em">{{ error }}</pre>
+    </div>
+    <div v-if="loading" class="text-center">
+        Chargement en cours...
+    </div>
+    <div v-else>
+        <div v-if="results.length < 1" class="text-center">
+            Aucune donnée...
+        </div>
+        <table v-else class="table-auto">
+            <thead>
+            <tr>
+                <td v-for="field in header">
+                    {{ field }}
+                </td>
+            </tr>
+            </thead>
+            <tbody>
+            <tr v-for="line in data">
+                <td v-for="field in line">
+                    {{ field }}
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<script src="https://unpkg.com/vue"></script>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://unpkg.com/@computablefacts/sdk-javascript@2.1/dist/bundle/index.min.js"></script>
+<script src="vueApp.js"></script>
+</body>
+</html>
