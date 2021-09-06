@@ -16,10 +16,10 @@ By default, the command read the SQL query from the file named `query.sql`. You 
 PS > ./Get-CsvFromMaterializeSql.ps1 my_request.txt -CfApiKey <your_api_key> -CfApiUrl <your_url_root>
 ```
 
-By default, the command will get the results 10 rows for each API call. You can change this by adding the `-RowsPerPage` parameter.
+By default, the command will get the results 100 rows for each API call. You can change this by adding the `-RowsPerPage` parameter.
 
 ```
-PS > ./Get-CsvFromMaterializeSql.ps1 -RowPerPage 50 -CfApiKey <your_api_key> -CfApiUrl <your_url_root>
+PS > ./Get-CsvFromMaterializeSql.ps1 -RowPerPage 500 -CfApiKey <your_api_key> -CfApiUrl <your_url_root>
 ```
 
-The result will be formatted as a CSV file and displayed to the screen. If you want to save the result to a file, just append `| Out-File my_results.csv` after the command.
+The result will be objects displayed to the screen. If you want to save the result to a file, just append `| Export-Csv -Path my_results.csv` after the command.

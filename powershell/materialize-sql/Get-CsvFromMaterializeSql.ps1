@@ -31,7 +31,7 @@ param (
     # Number of rows received for each API requests
     [Parameter(HelpMessage = "Number of rows received for each API requests.")]
     [int]
-    $RowsPerPage = 10,
+    $RowsPerPage = 100,
 
     # Query the data catalog
     [Parameter(HelpMessage = "Query the data catalog.")]
@@ -51,7 +51,7 @@ do {
     $currentQuery = "$query LIMIT $start, $RowsPerPage"
     Write-Debug "currentQuery=$currentQuery"
 
-    $returnFormat = if ($start -eq 0) { 'csv_with_header' } else { 'csv' }
+    $returnFormat = if ($start -eq 0) { 'objects' } else { 'objects' }
 
     $response = Invoke-WebRequest "$CfApiUrl/api/v2/public/materialize/sql" `
         -Method 'GET' `
@@ -67,7 +67,7 @@ do {
 
     Write-Debug $json.meta.count
 
-} until ($json.meta.count -lt $RowsPerPage)
+} until (($json.meta.count+1) -lt $RowsPerPage)
 
 
 
