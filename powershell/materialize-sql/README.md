@@ -22,4 +22,4 @@ By default, the command will get the results 100 rows for each API call. You can
 PS > ./Get-CsvFromMaterializeSql.ps1 -RowPerPage 500 -CfApiKey <your_api_key> -CfApiUrl <your_url_root>
 ```
 
-The result will be objects displayed to the screen. If you want to save the result to a file, just append `| Export-Csv -Path my_results.csv` after the command.
+The result will be objects displayed to the screen. If you want to save the result to a file, just append `| Export-Csv -NoTypeInformation -Path my_results.csv` after the command.
