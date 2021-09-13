@@ -40,7 +40,7 @@ const vm = new Vue({
       cf.httpClient.queryMaterializedConcepts({
         query: this.query,
         format: this.format,
-        catalog: this.useCatalog,
+        catalog: this.useCatalog ? '1' : '0',
       }).then(response => {
         //console.log('queryMaterializedConcepts response=', response)
         this.results = response && response.data ? response.data : []
