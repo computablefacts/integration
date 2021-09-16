@@ -54,10 +54,10 @@ do {
     $returnFormat = if ($start -eq 0) { 'objects' } else { 'objects' }
 
     $response = Invoke-WebRequest "$CfApiUrl/api/v2/public/materialize/sql" `
-        -Method 'GET' `
+        -Method 'POST' `
         -ContentType 'application/json; charset=utf-8' `
         -Headers @{'Authorization' = "Bearer $CfApiKey" } `
-        -Body @{ 'query' = $currentQuery; 'format' = $returnFormat; 'catalog' = $Catalog }
+        -Body (@{ 'query' = $currentQuery; 'format' = $returnFormat; 'catalog' = $Catalog.ToString() }|ConvertTo-Json)
 
     $json = ($response.Content | ConvertFrom-Json) 
 
