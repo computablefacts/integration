@@ -2,8 +2,8 @@ const vm = new Vue({
   el: '#app',
   data: function () {
     return {
-      inputToken: null,
-      inputBaseUrl: null,
+      inputToken: '',
+      inputBaseUrl: '',
       query: 'SELECT name, count(*) As Total FROM materialized_facts GROUP BY name',
       format: 'arrays_with_header',
       useCatalog: true,
@@ -32,6 +32,7 @@ const vm = new Vue({
   },
   methods: {
     loadResults() {
+
       this.loading = true
       this.hasError = false
       this.error = null
@@ -44,12 +45,16 @@ const vm = new Vue({
       }).then(response => {
         //console.log('queryMaterializedConcepts response=', response)
         this.results = response && response.data ? response.data : []
+        if (response.meta && response.meta.errors && response.meta.count <= 0) {
+          this.hasError = true;
+          this.error = response.meta.errors + "\n";
+        }
       }).catch(error => {
-        console.error('queryMaterializedConcepts error=', error)
-        this.hasError = true
-        this.error = error + "\n"
+        //console.error('queryMaterializedConcepts error=', error)
+        this.hasError = true;
+        this.error = error + "\n";
       }).finally(() => {
-        this.loading = false
+        this.loading = false;
       })
     },
 
