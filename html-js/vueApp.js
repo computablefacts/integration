@@ -4,7 +4,7 @@ const vm = new Vue({
     return {
       inputToken: '',
       inputBaseUrl: '',
-      query: 'SELECT name, count(*) As Total FROM materialized_facts GROUP BY name',
+      query: 'SELECT * \nFROM materialized_facts_properties\nORDER BY namespace_name, class_name, property_name',
       format: 'arrays_with_header',
       useCatalog: true,
       loading: false,
