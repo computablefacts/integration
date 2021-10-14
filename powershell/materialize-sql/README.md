@@ -23,3 +23,5 @@ PS > ./Get-CsvFromMaterializeSql.ps1 -RowPerPage 500 -CfApiKey <your_api_key> -C
 ```
 
 The result will be objects displayed to the screen. If you want to save the result to a file, just append `| Export-Csv -NoTypeInformation -Path my_results.csv` after the command.
+
+If you have problems with characters encoding (such as having a `?` instead of an accentuate character like `éàè`...) check the `Export-Csv` command encoding to choose Utf8. This is the default under [Powershell 7.x](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/export-csv?view=powershell-7.1#parameters) but under [Powershell 5.1](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/export-csv?view=powershell-5.1#parameters) you must add the parameter `-Encoding utf8`.
