@@ -1,4 +1,4 @@
-# Usage
+# Get-CsvFromMaterializeSql Usage
 
 Launch the command with :
 
@@ -24,4 +24,29 @@ PS > ./Get-CsvFromMaterializeSql.ps1 -RowPerPage 500 -CfApiKey <your_api_key> -C
 
 The result will be objects displayed to the screen. If you want to save the result to a file, just append `| Export-Csv -NoTypeInformation -Path my_results.csv` after the command.
 
-If you have problems with characters encoding (such as having a `?` instead of an accentuate character like `éàè`...) check the `Export-Csv` command encoding to choose Utf8. This is the default under [Powershell 7.x](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/export-csv?view=powershell-7.1#parameters) but under [Powershell 5.1](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/export-csv?view=powershell-5.1#parameters) you must add the parameter `-Encoding utf8`.
+If you have problems with characters encoding (such as having a `?` instead of an accentuated character like `éàè`...) check the `Export-Csv` command encoding to choose Utf8. This is the default under [Powershell 7.x](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/export-csv?view=powershell-7.1#parameters) but under [Powershell 5.1](https://docs.microsoft.com/en-us/powershell/module/microsoft.powershell.utility/export-csv?view=powershell-5.1#parameters) you must add the parameter `-Encoding utf8`.
+
+# Apply-Migrations usage
+
+Launch the command with :
+
+```
+PS > ./Apply-Migrations.ps1 -CfApiKey <your_api_key> -CfApiUrl <your_url_root>
+```
+
+The command execute the `up` migrations by default. If you want to execute the `down` migrations, launch :
+```
+PS > ./Apply-Migrations.ps1 down -CfApiKey <your_api_key> -CfApiUrl <your_url_root>
+```
+
+
+Your migration files should be in the `Migrations` sub-directory. If you want to change the directoyr, launch :
+
+```
+PS > ./Apply-Migrations.ps1 up MySubDirMigrations -CfApiKey <your_api_key> -CfApiUrl <your_url_root>
+```
+
+For `up` migration, the command execute all the SQL files ending by `.up.sql` found in the sub-directory in alphabetical order.
+
+For `down` migration, the command execute all the SQL files ending by `.down.sql` found in the sub-directory in reverse alphabetical order.
+
